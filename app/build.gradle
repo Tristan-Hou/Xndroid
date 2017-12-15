@@ -7,6 +7,19 @@ android {
         applicationId "net.xndroid"
         minSdkVersion 14
         targetSdkVersion 26
+
+        ndk {
+            moduleName "sockvpn"  //设置库(so)文件名称
+            //设置支持的so库架构
+            abiFilters "armeabi-v7a", "arm64-v8a", "armeabi"
+            ldLibs "log"
+        }
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+
         versionCode 13
         versionName "1.1.3-3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -15,6 +28,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets.main {
+        jniLibs.srcDirs = ['src/main/jni']
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
         }
     }
 }
